@@ -21,40 +21,33 @@ class App extends Component {
     }
   }
   componentWillMount(){
-    const previousNotes = this.state.notes;
-    const con = firebase.firestore();
+    const db = firebase.firestore();
+    var previousNotes = [];
   
-      con.collection("note")
+      db.collection("note")
       .get()
       .then(querySnapshot => {
-        const allIn = [];
 
-        querySnapshot.forEach(function(doc) {
-          allIn.push({
-            previousNotes: doc.data().note, 
-          });
+        querySnapshot.forEach(doc => {
+          previousNotes.push(doc.data().noteContent);
         });
-        this.setState({ allIn});
+         this.setState({ 
+          notes: previousNotes  
+        })
       })
       .catch(function(error) {
         console.log("Error getting documents: ", error);
       });  
-      this.state.allIn.map(v => {
-      previousNotes: v.previousNotes
-      })
-         this.setState({
-           notes: previousNotes
-         })
-       
-     }
+
+  }
   
   
   
 
   addNote(note){
   const db = firebase.firestore();
- // this.db.settings({timestampsInSnapshots: true
- // });
+ //db.settings({timestampsInSnapshots: true
+// });
     const noteRef = db.collection("note").add({
     noteContent: note
     });
