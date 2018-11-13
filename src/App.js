@@ -7,20 +7,18 @@ import { DB_CONFIG } from './Config/config';
 import firebase from 'firebase/app';
 import 'firebase/firestore';
 
-
-
 class App extends Component {
 
   constructor(props){
     super(props);
     this.addNote = this.addNote.bind(this); 
-   this.app = firebase.initializeApp(DB_CONFIG);
+    this.app = firebase.initializeApp(DB_CONFIG);
    
     this.state = {
       notes: [],
     }
   }
-  componentWillMount(){
+  componentDidMount(){
     const db = firebase.firestore();
     var previousNotes = [];
   
@@ -41,13 +39,9 @@ class App extends Component {
 
   }
   
-  
-  
 
   addNote(note){
-  const db = firebase.firestore();
- //db.settings({timestampsInSnapshots: true
-// });
+    const db = firebase.firestore();
     const noteRef = db.collection("note").add({
     noteContent: note
     });
@@ -62,7 +56,7 @@ class App extends Component {
           {
             this.state.notes.map((note) => {
               return (
-                <Note noteContent={note.noteContent} noteId={note.id} key={note.id} />               
+                <Note noteContent={note} noteId={note.id} key={note.id} />               
               )
             })
             
