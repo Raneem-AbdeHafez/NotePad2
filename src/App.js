@@ -4,8 +4,8 @@ import Note from './Note/Note';
 import NoteForm from './NoteForm/NoteForm';
 import './App.css';
 import { DB_CONFIG } from './Config/config';
-import firebase from 'firebase/app';
-import 'firebase/firestore';
+import firebase from 'firebase/compat/app';
+import 'firebase/compat/firestore';
 
 class App extends Component {
 
